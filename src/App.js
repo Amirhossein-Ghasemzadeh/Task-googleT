@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import List from './components/List';
+
+import { makeStyles } from '@mui/styles';
+const useStyles = makeStyles({
+  root: {
+   height: 'auto',
+  //  background: 'blue',
+  },
+});
 
 function App() {
+  const classes = useStyles();
+  const [sidebarValue, setSidebarValue] = useState(false);
+  const openToggleDrawer = () => {
+    setSidebarValue(true);
+  };
+  const closeToggleDrawer = () => {
+    setSidebarValue(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <Navbar openToggleDrawer={openToggleDrawer} />
+      <Sidebar
+        sidebarValue={sidebarValue}
+        closeToggleDrawer={closeToggleDrawer}
+      />
+      <List />
     </div>
   );
 }
