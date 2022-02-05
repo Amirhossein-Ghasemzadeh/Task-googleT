@@ -51,8 +51,9 @@ const Sidebar = ({ sidebarValue, closeToggleDrawer }) => {
       <Divider sx={{ mt: 3 }} />
 
       <Box sx={{ mt: 1, display: 'grid', textAlign: 'left' }}>
-        {btns.map((btn) => (
+        {btns.map((btn, i) => (
           <Button
+            key={i}
             sx={{
               display: 'flex',
               justifyContent: 'start',

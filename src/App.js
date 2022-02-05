@@ -7,17 +7,19 @@ import List from './components/List';
 import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles({
   root: {
-   height: 'auto',
-  //  background: 'blue',
+    // height: 'auto',
   },
 });
 
 function App() {
   const classes = useStyles();
+
   const [sidebarValue, setSidebarValue] = useState(false);
+
   const openToggleDrawer = () => {
     setSidebarValue(true);
   };
+  
   const closeToggleDrawer = () => {
     setSidebarValue(false);
   };

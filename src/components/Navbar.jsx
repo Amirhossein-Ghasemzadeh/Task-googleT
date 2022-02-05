@@ -13,11 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { makeStyles } from '@mui/styles';
-import shadows from '@mui/material/styles/shadows';
-
 import AppsIcon from '@mui/icons-material/Apps';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+
 const useStyles = makeStyles({
   menu: {
     '& .MuiPaper-root': {
@@ -54,20 +53,19 @@ const useStyles = makeStyles({
 const Navbar = ({ openToggleDrawer }) => {
   const classes = useStyles();
   const apps = [
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
-    <YouTubeIcon sx={{ fontSize: '50px' }} />,
+    { icon: <YouTubeIcon sx={{ fontSize: '40px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
+    { icon: <YouTubeIcon sx={{ fontSize: '50px' }} />, title: 'youtube' },
   ];
 
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -109,9 +107,9 @@ const Navbar = ({ openToggleDrawer }) => {
                 p: 1,
                 mr: 2,
               }}
+              onClick={openToggleDrawer}
             >
               <MenuIcon
-                onClick={openToggleDrawer}
                 sx={{
                   color: 'gray',
                 }}
@@ -162,18 +160,21 @@ const Navbar = ({ openToggleDrawer }) => {
               open={Boolean(anchorApp)}
               onClose={handleCloseAppMenu}
             >
-              {apps.map((app) => (
-                <MenuItem
-                  key={app}
-                  onClick={handleCloseAppMenu}
-                  sx={{ color: 'red' }}
-                >
-                  <Box sx={{ display: 'grid', placeItems: 'center' }}>
-                    {app}
-                    <Typography variant='body2'>youtube</Typography>
-                  </Box>
-                </MenuItem>
-              ))}
+              {apps.map((app, i) => {
+                const { title, icon } = app;
+                return (
+                  <MenuItem
+                    key={i}
+                    onClick={handleCloseAppMenu}
+                    sx={{ color: 'red' }}
+                  >
+                    <Box sx={{ display: 'grid', placeItems: 'center' }}>
+                      {icon}
+                      <Typography variant='body2'>{title}</Typography>
+                    </Box>
+                  </MenuItem>
+                );
+              })}
             </Menu>
             {/* ------ user Menu ------ */}
             <Tooltip title='Open settings'>
@@ -202,7 +203,7 @@ const Navbar = ({ openToggleDrawer }) => {
             >
               <Box
                 sx={{
-                  marginTop: '10px',
+                  mt: '10px',
                   display: 'flex',
                   justifyContent: 'center',
                 }}
