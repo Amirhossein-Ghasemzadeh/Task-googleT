@@ -11,6 +11,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
+  valueToPercent,
 } from '@mui/material';
 
 const useStyles = makeStyles({
@@ -44,11 +45,6 @@ const useStyles = makeStyles({
     fontSize: '18px',
     borderBottomRightRadius: '10px',
   },
-  // activeBtn: {
-  //   color: '#bd1b1b',
-  //   borderColor: 'transparent',
-  //   backgroundColor: 'red',
-  // },
   textActive: {
     borderBottom: '2px solid #1a73e8',
     color: '#1a73e8',
@@ -66,7 +62,10 @@ const words = [
   { fa: 'جدید', en: 'new' },
   { fa: 'کار', en: 'work' },
 ];
-
+const trnsLang = {
+  en: 'fa',
+  fa: 'en',
+};
 const List = () => {
   const classes = useStyles();
   const languageBtns = ['ENGLISH', 'PERSIAN'];
@@ -76,9 +75,10 @@ const List = () => {
   const [selectOutputLang, setSelectOutputLang] = useState('');
   const [selectInputLang, setSelectInputLang] = useState('');
   const [typed, setTyped] = useState('');
+
   const [trns, setTrns] = useState([]);
-  const [id, setId] = useState('en');
-  const [exchangeLang, setExchangeLang] = useState(false);
+  const [fromLang, setFromLang] = useState('en');
+
 
   // lang btns handler
   const inputLangHandler = (event, newLang) => {
@@ -100,12 +100,18 @@ const List = () => {
 
   // switch handler
   const switchHandler = () => {
-    setExchangeLang(setInputLang('persian'), setOutputLang('english'));
-  };
+    inputLang === 'persian' ? setInputLang('english') : setInputLang('persian');
 
-  const trnsLang = {
-    en: 'fa',
-    fa: 'en',
+    outputLang === 'english'
+      ? setOutputLang('persian')
+      : setOutputLang('english');
+
+    setFromLang(trnsLang[fromLang]);
+    let target = {
+      id: trnsLang[fromLang],
+      value: trns,
+    };
+    inputHandleChange({ target });
   };
 
   const inputHandleChange = (e) => {
@@ -113,7 +119,7 @@ const List = () => {
     let { id, value } = e.target;
     setTyped(value);
     let transTo = trnsLang[id];
-    let transList = words.find((word) => word[id] == value)[transTo];
+    let transList = words?.find((word) => word[id] == value)?.[transTo];
     if (transList) setTrns(transList);
   };
 
@@ -169,7 +175,10 @@ const List = () => {
               '&:hover': { bgcolor: '#e7e3e367' },
             }}
           >
-            <ToggleButton value='persian' onClick={() => setId('fa')}>
+            <ToggleButton
+              value='persian'
+              onClick={() => setFromLang(trnsLang[fromLang])}
+            >
               <Typography
                 className={
                   inputLang === 'persian' ? `${classes.textActive}` : ''
@@ -179,7 +188,10 @@ const List = () => {
               </Typography>
             </ToggleButton>
 
-            <ToggleButton value='english' onClick={() => setId('en')}>
+            <ToggleButton
+              value='english'
+              onClick={() => setFromLang(trnsLang[fromLang])}
+            >
               <Typography
                 className={
                   inputLang === 'english' ? `${classes.textActive}` : ''
@@ -208,7 +220,7 @@ const List = () => {
           </Select>
         </Box>
 
-        <IconButton onClick={() => switchHandler(!exchangeLang)}>
+        <IconButton onClick={() => switchHandler()}>
           <SwapHorizSharpIcon />
         </IconButton>
 
@@ -280,7 +292,7 @@ const List = () => {
           placeholder='Type something ...'
           onChange={inputHandleChange}
           value={typed}
-          id={id}
+          id={fromLang}
           style={{
             width: '100%',
             height: '100%',
@@ -294,7 +306,7 @@ const List = () => {
           placeholder='Translation'
           style={{ width: '100%', height: '100%' }}
           disabled
-          id='fa'
+          id={trnsLang[fromLang]}
           value={trns}
         />
       </Box>
