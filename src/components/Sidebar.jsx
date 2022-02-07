@@ -55,7 +55,6 @@ const Sidebar = ({ sidebarValue, closeToggleDrawer }) => {
                 ml: 3,
                 textTransform: 'capitalize',
                 color: 'black',
-                textTransform: 'capitalize',
               }}
             >
               {btn}
