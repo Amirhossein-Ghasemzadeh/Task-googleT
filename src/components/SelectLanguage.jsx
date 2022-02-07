@@ -12,6 +12,7 @@ import {
 import SwapHorizSharpIcon from '@mui/icons-material/SwapHorizSharp';
 
 import { changeLanguage } from './data';
+import { langBtns } from './data';
 
 const useStyles = makeStyles({
   langContainer: {
@@ -57,7 +58,6 @@ const SelectLanguage = ({
   const [selectOutputLang, setSelectOutputLang] = useState('');
   const [selectInputLang, setSelectInputLang] = useState('');
   const [inputLang, setInputLang] = useState('english');
-
   const [outputLang, setOutputLang] = useState('persian');
 
   const inputLangHandler = (event, newLang) => {
@@ -141,35 +141,26 @@ const SelectLanguage = ({
           }}
           className={classes.toggleLangBtn}
         >
-          <ToggleButton
-            value='persian'
-            onClick={() => {
-              setFromLang(changeLanguage[fromLang]);
-              setOutputLang('english');
-              switchHandler();
-            }}
-          >
-            <Typography
-              className={inputLang === 'persian' ? `${classes.textActive}` : ''}
-            >
-              PERSIAN
-            </Typography>
-          </ToggleButton>
-
-          <ToggleButton
-            value='english'
-            onClick={() => {
-              setFromLang(changeLanguage[fromLang]);
-              setOutputLang('persian');
-              switchHandler();
-            }}
-          >
-            <Typography
-              className={inputLang === 'english' ? `${classes.textActive}` : ''}
-            >
-              ENGLISH
-            </Typography>
-          </ToggleButton>
+          {langBtns.map((language, i) => {
+            const { lang, value } = language;
+            return (
+              <ToggleButton
+                key={i}
+                value={value}
+                onClick={() => {
+                  setFromLang(changeLanguage[fromLang]);
+                  setOutputLang('persian');
+                  switchHandler();
+                }}
+              >
+                <Typography
+                  className={inputLang === value ? `${classes.textActive}` : ''}
+                >
+                  {lang}
+                </Typography>
+              </ToggleButton>
+            );
+          })}
         </ToggleButtonGroup>
         {/* --- select input Lang --- */}
         <Select
@@ -209,25 +200,23 @@ const SelectLanguage = ({
           }}
           className={classes.toggleLangBtn}
         >
-          <ToggleButton value='persian'>
-            <Typography
-              className={
-                outputLang === 'persian' ? `${classes.textActive}` : ''
-              }
-            >
-              PERSIAN
-            </Typography>
-          </ToggleButton>
-
-          <ToggleButton value='english'>
-            <Typography
-              className={
-                outputLang === 'english' ? `${classes.textActive}` : ''
-              }
-            >
-              ENGLISH
-            </Typography>
-          </ToggleButton>
+          {langBtns
+            .slice(0)
+            .reverse()
+            .map((language, i) => {
+              const { lang, value } = language;
+              return (
+                <ToggleButton value={value} key={i}>
+                  <Typography
+                    className={
+                      outputLang === value ? `${classes.textActive}` : ''
+                    }
+                  >
+                    {lang}
+                  </Typography>
+                </ToggleButton>
+              );
+            })}
         </ToggleButtonGroup>
         {/* --- select output Lang --- */}
         <Select

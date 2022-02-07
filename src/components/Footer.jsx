@@ -36,7 +36,7 @@ const Footer = () => {
         {footerIcons.map((btn, i) => {
           const { icon, title, value } = btn;
           return (
-            <Box>
+            <Box key={i}>
               <ToggleButtonGroup
                 value={toggle}
                 onChange={toggleHandler}
@@ -47,7 +47,6 @@ const Footer = () => {
                 }}
               >
                 <ToggleButton
-                  key={i}
                   value={value}
                   sx={{ borderRadius: '50%' }}
                   color='primary'

@@ -54,3 +54,8 @@ export const changeLanguage = {
   en: 'fa',
   fa: 'en',
 };
+
+export const langBtns = [
+  { lang: 'persian', value: 'persian' },
+  { lang: 'english', value: 'english' },
+];
