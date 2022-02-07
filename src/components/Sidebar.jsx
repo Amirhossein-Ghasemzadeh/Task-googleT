@@ -1,23 +1,11 @@
-import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Typography } from '@mui/material';
 
 const Sidebar = ({ sidebarValue, closeToggleDrawer }) => {
-  const btns = [
-    'Privacy policy and conditions',
-    'Guides',
-    'send feedback',
-    'Google info',
-  ];
+  const btns = ['Privacy policy', 'Guides', 'send feedback', 'Google info'];
 
   const list = () => (
     <Box
@@ -49,7 +37,6 @@ const Sidebar = ({ sidebarValue, closeToggleDrawer }) => {
         </Typography>
       </Button>
       <Divider sx={{ mt: 3 }} />
-
       <Box sx={{ mt: 1, display: 'grid', textAlign: 'left' }}>
         {btns.map((btn, i) => (
           <Button
@@ -87,4 +74,5 @@ const Sidebar = ({ sidebarValue, closeToggleDrawer }) => {
     </>
   );
 };
+
 export default Sidebar;
